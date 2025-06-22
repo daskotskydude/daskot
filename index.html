@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Parfait Menu with Tabs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+        btn.classList.add('text-gray-500');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.querySelector(`[data-tab="${tabId}"]`).classList.add('text-orange-500', 'border-b-2', 'border-orange-500');
+      document.querySelector(`[data-tab="${tabId}"]`).classList.remove('text-gray-500');
+    }
+
+    function showTypeSection(type) {
+      document.querySelectorAll('.type-section').forEach(el => el.classList.add('hidden'));
+      document.getElementById(type).classList.remove('hidden');
+    }
+
+    function checkSelections() {
+      const tab = document.querySelector('.tab-content:not(.hidden)');
+      const requiredGroups = tab.querySelectorAll('[data-required]');
+      let allSelected = true;
+      requiredGroups.forEach(group => {
+        const inputs = group.querySelectorAll('input[type="radio"]');
+        const nameSet = new Set();
+        inputs.forEach(input => nameSet.add(input.name));
+        nameSet.forEach(name => {
+          if (!tab.querySelector(`input[name="${name}"]:checked`)) {
+            allSelected = false;
+          }
+        });
+      });
+      const addButton = document.getElementById('add-button');
+      if (allSelected) {
+        addButton.disabled = false;
+        addButton.classList.remove('bg-gray-300', 'cursor-not-allowed');
+        addButton.classList.add('bg-orange-500');
+      } else {
+        addButton.disabled = true;
+        addButton.classList.add('bg-gray-300', 'cursor-not-allowed');
+        addButton.classList.remove('bg-orange-500');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      showTab('tab1');
+      showTypeSection('scoop');
+      document.querySelectorAll('input[type="radio"]').forEach(el => {
+        el.addEventListener('change', checkSelections);
+      });
+      checkSelections();
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-800 overflow-y-auto max-h-screen">
+  <div class="max-w-md mx-auto pb-28">
+    <h2 class="text-sm font-medium text-center py-5 px-4 bg-white text-orange-500 z-40 relative">
+      Please note, all the flavors are shown here, but in the live system, only the selected flavors will be displayed.
+    </h2>
+
+    <div class="flex justify-around border-b bg-white sticky top-0 z-50 shadow-md">
+      <button data-tab="tab1" onclick="showTab('tab1')" class="tab-button w-full py-3 text-sm font-semibold">Setup 1</button>
+      <button data-tab="tab2" onclick="showTab('tab2')" class="tab-button w-full py-3 text-sm font-semibold">Setup 2</button>
+      <button data-tab="tab3" onclick="showTab('tab3')" class="tab-button w-full py-3 text-sm font-semibold">Setup 3</button>
+    </div>
+
+    <!-- Tab 1 -->
+    <div id="tab1" class="tab-content relative z-10 bg-white pt-6">
+      <h1 class="text-lg font-bold text-center">Parfait Current setup</h1>
+      <h2 class="font-medium py-5 px-4">For demonstration purposes, only the Soft Serve option is shown. The customer selects 'Parfait 12 Oz With Frozen Yogurt'. If they want Scoop, they need to select 'Parfait 12 Oz With Ice Cream' instead.</h2>
+      <img src="Screenshot 2025-06-21 141711.png" alt="Parfait" class="w-full h-60 min-h-[15rem] object-cover">
+
+      <h1 class="text-lg font-semibold">Parfait 12 Oz With Frozen Yogurt</h1>
+      <p class="text-sm text-gray-500 mb-4">Two layers of frozen yogurt and three layers of any topping.</p>
+
+      <div class="p-4 space-y-0" data-required>
+        
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of First frozen yogurt layer</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Golden Vanilla Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Vanilla Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Strawberry Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Blackberry Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Sea Salted Caramel Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cheesecake Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cake Butter Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Greek Honey Vanilla Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Almond Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Ital Trat Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Mousse Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Strawberry Yogurt
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of second frozen yogurt layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Golden Vanilla Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Vanilla Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Strawberry Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Blackberry Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Sea Salted Caramel Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cheesecake Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cake Butter Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Greek Honey Vanilla Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Almond Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Ital Trat Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Mousse Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Strawberry Yogurt
+            <input type="radio" name="yogurt11" class="form-radio text-orange-500">
+          </label>
+        </div>
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of First topping layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mixed nut topping
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            M&M Plain
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Waffle Cone Chips 
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Sprinkles
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Sprinkles
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Oreo Cookies
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Gummy Bears
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Reeses Peanut Butter Cups
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Chips
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Walnut Honey
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+        </div>
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of second topping layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mixed nut topping
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            M&M Plain
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Waffle Cone Chips 
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Sprinkles
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Sprinkles
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Oreo Cookies
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Gummy Bears
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Reeses Peanut Butter Cups
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Chips
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Walnut Honey
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2 -->
+    <div id="tab2" class="tab-content hidden relative z-10 bg-white pt-6">
+      <h1 class="text-lg font-bold text-center">Parfait with Variations added</h1>
+      <h2 class="font-medium py-5 px-4">Customer can choose between Scoop, Soft Serve, or Mixed</h2>
+      <img src="Screenshot 2025-06-21 141711.png" alt="Parfait" class="w-full h-60 min-h-[15rem] object-cover">
+
+      <h1 class="text-lg font-semibold">Parfait 12 Oz</h1>
+      <p class="text-sm text-gray-500 mb-4">Two layers of frozen yogurt and two layers of any topping.</p>
+      <div class="px-4 mb-4">
+        <p class="text-sm text-gray-500 mb-2">Choose Type</p>
+        <div class="space-y-2">
+          <label class="flex justify-between border-b py-2">
+            <span>Scoop</span>
+            <input type="radio" name="type2" onclick="showTypeSection('scoop')" class="form-radio text-orange-500" checked />
+          </label>
+          <label class="flex justify-between border-b py-2">
+            <span>Soft Serve</span>
+            <input type="radio" name="type2" onclick="showTypeSection('softserve')" class="form-radio text-orange-500" />
+          </label>
+          <label class="flex justify-between border-b py-2">
+            <span>Mixed</span>
+            <input type="radio" name="type2" onclick="showTypeSection('mixed')" class="form-radio text-orange-500" />
+          </label>
+        </div>
+      </div>
+      <div id="scoop" class="type-section p-4" data-required>
+        <h2 class="text-lg font-semibold">Scoop Selection</h2>
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of First Scoop layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Mocha Almond
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Butter Pecan
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cookies & Cream
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cotton Candy
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Rainbow Cream
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Mint Chocolate
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Pralines & Cream
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Psychedelic Sorbet
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Choco Chunk Cookie Dough
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Peanut Butter Delight
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Sea Salted Caramel 
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chewy Brownie
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla Scoop
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cold Brew Coffee
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of Second Scoop layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Mocha Almond
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Butter Pecan
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cookies & Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cotton Candy
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Rainbow Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Mint Chocolate
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Pralines & Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Psychedelic Sorbet
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Choco Chunk Cookie Dough
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Peanut Butter Delight
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Sea Salted Caramel 
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chewy Brownie
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla Scoop
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cold Brew Coffee
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of first topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of second topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice of Third Topping Layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+      </div>
+      
+      <div id="softserve" class="type-section hidden p-4" data-required>
+        <h2 class="text-lg font-semibold">Soft Serve Selection</h2>
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of First Soft Serve layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Golden Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Blackberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Sea Salted Caramel
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cheesecake
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cake Butter
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Greek Honey Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate Almond
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Ital Trat
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          White Chocolate Mousse
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+       
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of Second Soft Serve layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Golden Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Blackberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Sea Salted Caramel
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cheesecake
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cake Butter
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Greek Honey Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate Almond
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Ital Trat
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          White Chocolate Mousse
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+       
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of first topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of second topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice of Third Topping Layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+      </div>
+      <div id="mixed" class="type-section hidden p-4" data-required>
+        <h2 class="text-lg font-semibold">Mixed Selection</h2>
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of  Soft Serve layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Golden Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Blackberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          NSA Sea Salted Caramel
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cheesecake
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cake Butter
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Greek Honey Vanilla
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate Almond
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Ital Trat
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          White Chocolate Mousse
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab1_scoop" class="form-radio text-orange-500">
+        </label>
+
+        <h2 class="text-lg font-semibold">.</h2>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of Scoop layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between border-b py-2">
+          Mocha Almond
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Butter Pecan
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chocolate
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cookies & Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cotton Candy
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Rainbow Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Mint Chocolate
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Strawberry
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Pralines & Cream
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Psychedelic Sorbet
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Choco Chunk Cookie Dough
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Peanut Butter Delight
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Sea Salted Caramel 
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Chewy Brownie
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Vanilla Scoop
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between border-b py-2">
+          Cold Brew Coffee
+          <input type="radio" name="tab2_scoop" class="form-radio text-orange-500">
+        </label>
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of first topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping1" class="form-radio text-orange-500">
+        </label>
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of second topping layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping12" class="form-radio text-orange-500">
+        </label>
+
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice of Third Topping Layer:</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mixed nut topping
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          M&M Plain
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Waffle Cone Chips 
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Sprinkles
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Crushed Oreo Cookies
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Gummy Bears
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Reeses Peanut Butter Cups
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Chips
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Walnut Honey
+          <input type="radio" name="topping111" class="form-radio text-orange-500">
+        </label>
+
+
+        
+      </div>
+    </div>
+
+    <!-- Tab 3 -->
+    <div id="tab3" class="tab-content hidden relative z-10 bg-white pt-6">
+      <h1 class="text-lg font-bold text-center">Parfait Setup 3</h1>
+      <div class="p-4 space-y-6" data-required>
+        <div>
+          <h2 class="font-medium py-5 px-4">without adding softserve or scoop or mix customer can choose how they want </h2>
+      
+      <img src="Screenshot 2025-06-21 141711.png" alt="Parfait" class="w-full h-60 min-h-[15rem] object-cover">
+
+      <h1 class="text-lg font-semibold">Parfait 12 Oz</h1>
+      <p class="text-sm text-gray-500 mb-4">Two layers of frozen yogurt and three layers of any topping.</p>
+
+      <div class="p-4 space-y-0" data-required>
+        
+        <div class="flex justify-between items-center">
+          <h2 class="font-medium">Your Choice Of First layer</h2>
+          <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+        <label class="flex justify-between items-center border-b py-2">
+          Mocha Almond Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Golden Vanilla Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Butter Pecan Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Vanilla Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cookies & Cream Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Strawberry Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cotton Candy Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Blackberry Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Rainbow Cream Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          NSA Sea Salted Caramel Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Vanilla Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cheesecake Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Mint Chocolate Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cake Butter Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Strawberry Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Greek Honey Vanilla Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Pralines & Cream Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chocolate Almond Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Psychedelic Sorbet Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Ital Trat Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Choco Chunk Cookie Dough Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          White Chocolate Mousse Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Peanut Butter Delight Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Strawberry Soft Serve
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Sea Salted Caramel Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Chewy Brownie Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        <label class="flex justify-between items-center border-b py-2">
+          Cold Brew Coffee Scoop
+          <input type="radio" name="yogurt1" class="form-radio text-orange-500">
+        </label>
+        
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of Second layer</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mocha Almond Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Golden Vanilla Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Butter Pecan Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Vanilla Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cookies & Cream Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Strawberry Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cotton Candy Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Blackberry Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Cream Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            NSA Sea Salted Caramel Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Vanilla Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cheesecake Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Mint Chocolate Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cake Butter Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Strawberry Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Greek Honey Vanilla Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Pralines & Cream Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Almond Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Psychedelic Sorbet Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Ital Trat Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Choco Chunk Cookie Dough Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Mousse Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Peanut Butter Delight Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Strawberry Soft Serve
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Sea Salted Caramel Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chewy Brownie Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Cold Brew Coffee Scoop
+            <input type="radio" name="yogurt51" class="form-radio text-orange-500">
+          </label>
+          
+        </div>
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of First topping layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mixed nut topping
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            M&M Plain
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Waffle Cone Chips 
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Sprinkles
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Sprinkles
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Oreo Cookies
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Gummy Bears
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Reeses Peanut Butter Cups
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Chips
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Walnut Honey
+            <input type="radio" name="topping11" class="form-radio text-orange-500">
+          </label>
+        </div>
+        <div>
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice Of second topping layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mixed nut topping
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            M&M Plain
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Waffle Cone Chips 
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Sprinkles
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Sprinkles
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Oreo Cookies
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Gummy Bears
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Reeses Peanut Butter Cups
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Chips
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Walnut Honey
+            <input type="radio" name="topping1" class="form-radio text-orange-500">
+          </label>
+
+          <div class="flex justify-between items-center">
+            <h2 class="font-medium">Your Choice of Third Topping Layer:</h2>
+            <span class="bg-black text-white text-xs px-2 py-1 rounded">Required</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-2">Choose 1</p>
+          <label class="flex justify-between items-center border-b py-2">
+            Mixed nut topping
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            M&M Plain
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Waffle Cone Chips 
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Rainbow Sprinkles
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Chocolate Sprinkles
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Crushed Oreo Cookies
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Gummy Bears
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Reeses Peanut Butter Cups
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            White Chocolate Chips
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+          <label class="flex justify-between items-center border-b py-2">
+            Walnut Honey
+            <input type="radio" name="topping111" class="form-radio text-orange-500">
+          </label>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex items-center justify-between max-w-md mx-auto">
+    <div class="flex items-center gap-4">
+      <button class="text-2xl px-2">−</button>
+      <span class="text-lg">1</span>
+      <button class="text-2xl px-2 text-orange-500">+</button>
+    </div>
+    <button id="add-button" class="bg-gray-300 text-white font-semibold px-4 py-2 rounded cursor-not-allowed" disabled>
+      Add item — QAR 29.00
+    </button>
+  </div>
+</body>
+</html>
